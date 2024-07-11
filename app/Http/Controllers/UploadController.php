@@ -20,9 +20,13 @@ class UploadController extends Controller
 
     public function store(Request $request)
     {
-
-        $cover = $request->file('cover') ? $request->file('cover')->store('cover', 'public') : null;
-        $file = $request->file('file') ? $request->file('file')->store('file', 'public') : null;
+        try {
+            $cover = $request->file('cover') ? $request->file('cover')->store('cover', 'public') : null;
+            $file = $request->file('file') ? $request->file('file')->store('file', 'public') : null;
+        } catch (\Exception $e) {
+            // Log the error or return a response to help with debugging
+            return response()->json(['error' => 'File storage failed: ' . $e->getMessage()], 500);
+        }
 
         $content = new Content();
         $content->subject_topic = $request->input('title');
