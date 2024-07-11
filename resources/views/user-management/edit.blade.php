@@ -10,11 +10,11 @@
             @csrf
             <div class="mb-4">
                 <label class="block mb-2">Name</label>
-                <input type="text" name="name" class="border rounded w-full px-4 py-2">
+                <input type="text" name="name" required value="{{$user->name}}" class="border rounded w-full px-4 py-2">
             </div>
             <div class="mb-4">
                 <label class="block mb-2">Email</label>
-                <input type="email" name="email" class="border rounded w-full px-4 py-2">
+                <input type="email" name="email" value="{{$user->email}}" disabled class="border rounded w-full px-4 py-2">
             </div>
             <div class="mb-4">
                 <label class="block mb-2">Password</label>
@@ -22,13 +22,15 @@
             </div>
             <div class="mb-4">
                 <label class="block mb-2">Role</label>
-                <select name="role" class="border rounded w-full px-4 py-2">
-                    <option value="User">User</option>
-                    <option value="Teacher">Teacher</option>
-                    <option value="Admin">Admin</option>
+                <select name="role" required class="border rounded w-full px-4 py-2">
+                    <option value="">เลือกสิทธิ</option>
+                    @foreach($roles as $role)
+                    <option value="{{$role->id}}">{{$role->name}}</option>
+                    @endforeach
                 </select>
             </div>
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Update user</button>
+            <x-primary-button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">บันทึก</x-primary-button>
+            <x-link-button href="/user-management">ยกเลิก</x-link-button>
         </form>
     </div>
 </x-app-layout>

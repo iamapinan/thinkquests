@@ -17,8 +17,6 @@ class CreateAnswersTable extends Migration
             $table->foreignId('question_id')->constrained('questions')->onDelete('cascade');
             $table->text('answer_text')->nullable();
             $table->string('answer_image')->nullable();
-            $table->boolean('is_correct')->default(false);
-            $table->integer('score')->default(0);
             $table->timestamps();
         });
     }

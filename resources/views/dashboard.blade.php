@@ -16,7 +16,7 @@
                                     <h2 class="text-2xl font-bold">หน้าแรก</h2>
                                     <span
                                         class="inline-block py-1 px-2 ml-2 rounded-full text-xs text-white bg-blue-500">ทั้งหมด
-                                        56
+                                        {{ $contents->count() }} รายการ
                                     </span>
                                 </div>
                                 <div
@@ -45,23 +45,37 @@
                                 </a>
                             </div>
                         </section>
-                        <x-heading>
-                            Draft
-                        </x-heading>
-                        <div class="flex flex-wrap -m-4">
-                            <x-content-item :isDraft="true" />
-                            <x-content-item :isDraft="true" />
-                            <x-content-item :isDraft="true" />
-                            <x-content-item :isDraft="true" />
-                        </div>
                         <!-- Category -->
-                        <x-heading>
-                            Category
-                        </x-heading>
-                        <div class="flex flex-wrap -m-4">
-                            <x-content-item />
-                            <x-content-item />
-                            <x-content-item />
+                        <div class="flex flex-wrap gap-3 justify-center mb-6">
+                            @foreach ($contents as $content)
+                            <x-link-button href="/content/{{$content->id}}" class="lg:w-1/4">
+                                <div class="p-4 w-full rounded">
+                                    <div class="relative h-40 w-full mb-4 mx-auto">
+                                        <img class="w-full h-full object-cover rounded"
+                                                src="{{ asset('storage/' . $content->cover_image  ) }}"
+                                                alt="">
+                                    </div>
+                                    <div class="flex mb-6 justify-between items-center">
+                                        <div>
+                                            <h3 class="text-sm font-bold mb-3">{{ $content->subject_topic }}</h3>
+                                            <span class="text-xs text-gray-500">{{ $content->content_details }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex mb-2 justify-between items-center">
+                                        <h4 class="text-xs font-medium">หมวดหมู่</h4>
+                                        <span class="inline-block py-1 px-2 rounded-full bg-green-50 text-xs text-green-500">{{$content->category_name}}</span>
+                                    </div>
+                                    <div class="flex mb-2 justify-between items-center">
+                                        <h4 class="text-xs font-medium">ระดับชั้น</h4>
+                                        <span class="text-xs text-blue-500 font-medium">{{ $content->level_name }}</span>
+                                    </div>
+                                    <div class="flex mb-5 justify-between items-center">
+                                        <h4 class="text-xs font-medium">แก้ไขล่าสุด</h4>
+                                        <span class="text-xs text-blue-500 font-medium">{{ $content->updated_at }}</span>
+                                    </div>
+                                </div>
+                            </x-link-button>
+                            @endforeach
                         </div>
                     </x-container>
 

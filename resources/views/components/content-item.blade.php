@@ -2,47 +2,18 @@
 <div class="w-full lg:w-1/3 p-4">
     <div class="p-4 bg-white rounded">
         <div class="relative h-40 w-full mb-4">
-            @if($isDraft)
-                <img class="w-full h-full object-cover rounded opacity-50 hover:opacity-100"
+            <img class="w-full h-full object-cover rounded"
                     src="https://picsum.photos/334/200"
                     alt="">
-            @else
-                <img class="w-full h-full object-cover rounded"
-                    src="https://picsum.photos/334/200"
-                    alt="">
-            @endif
-            @if($isDraft)
-                <span class="absolute top-0 right-0 py-1 px-2 mt-2 mr-2 bg-gray-800 rounded text-xs text-white">
-                    <svg class="w-6 h-6 text-white-800 dark:text-white" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                    </svg>
-
-                </span>
-            @endif
         </div>
         <div class="flex mb-6 justify-between items-center">
             <div>
                 <h3 class="text-sm font-medium">ชื่อเรื่อง</h3>
                 <span class="text-xs text-gray-500">คำอธิบาย</span>
             </div>
-            <button class="ml-auto p-2 bg-blue-50 rounded">
-                <svg width="16" height="16" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M7.99984 9.33335C8.73622 9.33335 9.33317 8.7364 9.33317 8.00002C9.33317 7.26364 8.73622 6.66669 7.99984 6.66669C7.26346 6.66669 6.6665 7.26364 6.6665 8.00002C6.6665 8.7364 7.26346 9.33335 7.99984 9.33335Z"
-                        fill="#382CDD"></path>
-                    <path
-                        d="M3.33333 9.33335C4.06971 9.33335 4.66667 8.7364 4.66667 8.00002C4.66667 7.26364 4.06971 6.66669 3.33333 6.66669C2.59695 6.66669 2 7.26364 2 8.00002C2 8.7364 2.59695 9.33335 3.33333 9.33335Z"
-                        fill="#382CDD"></path>
-                    <path
-                        d="M12.6668 9.33335C13.4032 9.33335 14.0002 8.7364 14.0002 8.00002C14.0002 7.26364 13.4032 6.66669 12.6668 6.66669C11.9304 6.66669 11.3335 7.26364 11.3335 8.00002C11.3335 8.7364 11.9304 9.33335 12.6668 9.33335Z"
-                        fill="#382CDD"></path>
-                </svg>
-            </button>
         </div>
         <div class="flex mb-2 justify-between items-center">
-            <h4 class="text-xs font-medium">กลุ่มสาระ</h4>
+            <h4 class="text-xs font-medium">หมวดหมู่</h4>
             <span class="inline-block py-1 px-2 rounded-full bg-green-50 text-xs text-green-500">การอ่านและเขียน</span>
         </div>
         <div class="flex mb-2 justify-between items-center">

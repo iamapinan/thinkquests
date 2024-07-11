@@ -14,8 +14,10 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->string('type'); // 'text' or 'multiple_choice'
+            $table->integer('content_id');
             $table->text('question_text');
+            $table->integer('correct_choice');
+            $table->integer('question_score');
             $table->string('question_image')->nullable();
             $table->timestamps();
         });
