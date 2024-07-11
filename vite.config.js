@@ -7,6 +7,12 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
+                'resources/js/quiz-builder.js',
+                'resources/js/quiz.js',
+                'resources/js/score.js',
+                'resources/js/upload.js',
+                'resources/js/permission.js',
+                'resources/js/user-management.js'
             ],
             refresh: true,
         }),
