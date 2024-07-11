@@ -11,8 +11,9 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-4 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <x-form-builder content_id="124" />
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <x-form-builder content_id="{{ request('content_id') }}" />
+                </div>
             </div>
         </div>
     </div>

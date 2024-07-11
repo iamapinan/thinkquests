@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use App\Models\Role;
 class UserManagementController extends Controller
 {
     public function index(Request $request)
@@ -40,7 +40,8 @@ class UserManagementController extends Controller
 
     public function edit(User $user)
     {
-        return view('user-management.edit', compact('user'));
+        $roles = Role::all();
+        return view('user-management.edit', compact('user', 'roles'));
     }
 
     public function update(Request $request, User $user)

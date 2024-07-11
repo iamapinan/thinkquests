@@ -5,73 +5,80 @@ use App\Models\Question;
 use App\Models\Answer;
 use App\Models\Content;
 use Illuminate\Http\Request;
-
+use App\Models\Level;
+use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 class UploadController extends Controller
 {
     //
     public function uploadForm()
     {
-        return view('upload');
+        $levels = Level::all();
+        $categories = Category::all();
+        return view('upload', compact('levels', 'categories'));
     }
 
     public function store(Request $request)
     {
-        $data = $request->all();
-        $request->validate([
-            'subject_topic' => 'required|string|max:255',
-            'content_details' => 'required|string',
-            'content_indicators' => 'required|string',
-            'grade' => 'required|integer',
-            'category' => 'required|integer',
-            'cover_image' => 'nullable|image|mimes:jpg,png|max:10240', // Max 10MB
-            'video_pdf' => 'nullable|file|mimes:pdf,mp4|max:102400', // Max 100MB
-            'e_testing' => 'nullable|boolean',
-        ]);
 
-        // Handle file uploads
-        $coverImagePath = $request->file('cover_image') ? $request->file('cover_image')->store('cover_images') : null;
-        $videoPdfPath = $request->file('video_pdf') ? $request->file('video_pdf')->store('video_pdfs') : null;
+        $cover = $request->file('cover') ? $request->file('cover')->store('cover', 'public') : null;
+        $file = $request->file('file') ? $request->file('file')->store('file', 'public') : null;
 
-        // Create a new content record
         $content = new Content();
-        $content->subject_topic = $request->input('subject_topic');
-        $content->content_details = $request->input('content_details');
-        $content->content_indicators = $request->input('content_indicators');
-        $content->grade = $request->input('grade');
+        $content->subject_topic = $request->input('title');
+        $content->content_details = $request->input('description');
+        $content->content_indicators = $request->input('indicators');
+        $content->grade = $request->input('level');
         $content->category = $request->input('category');
-        $content->cover_image = $coverImagePath;
-        $content->video_pdf = $videoPdfPath;
-        $content->e_testing = $request->input('e_testing', false);
+        $content->cover_image = $cover;
+        $content->video_pdf = $file;
+        $content->e_testing = $request->input('e_testing') === 'on' ? true : false;
         $content->save();
 
-        $questions = $data['questions'];
+        return response()->json(['message' => 'Content created successfully!', 'data' => $content]);
+    }
 
-        foreach ($questions as $q) {
-            $question = new Question();
-            $question->type = $q['type'];
-            $question->question_text = $q['question_text'];
-            
-            if (isset($q['question_image'])) {
-                $question->question_image = $q['question_image']->store('question_images', 'public');
+    public function saveContent(Request $request)
+    {
+        // Find the content
+        $content = Content::findOrFail($request->input('content_id'));
+
+        // Loop through each question
+        foreach ($request->input('q') as $key => $questionData) {
+            // Handle question image upload
+            $questionImagePath = null;
+   
+            if ($request->hasFile("q.{$key}.question_image")) {
+                $questionImagePath = $request->file("q.{$key}.question_image")->store('question_images');
             }
-            
+            // Create a new question record
+            $question = new Question();
+            $question->content_id = $content->id;
+            $question->question_text = $questionData['question_message'];
+            $question->correct_choice = $questionData['answer'];
+            $question->question_score = $questionData['score'];
+            $question->question_image = $questionImagePath;
             $question->save();
 
-            foreach ($q['answers'] as $a) {
+
+            // Loop through each option
+            foreach ($questionData['options'] as $optionKey => $optionData) {
+                // Handle option image upload
+                $optionImagePath = null;
+                if ($request->hasFile("q.{$key}.options.{$optionKey}.image")) {
+                    $optionImagePath = $request->file("q.{$key}.options.{$optionKey}.image")->store('option_images');
+                }
+
+                // Create a new option record
                 $answer = new Answer();
                 $answer->question_id = $question->id;
-                $answer->answer_text = $a['answer_text'];
-                
-                if (isset($a['answer_image'])) {
-                    $answer->answer_image = $a['answer_image']->store('answer_images', 'public');
-                }
-                
-                $answer->is_correct = $a['is_correct'];
-                $answer->score = $a['score'];
+                $answer->answer_text = $optionData['text'];
+                $answer->answer_image = $optionImagePath;
                 $answer->save();
             }
         }
 
-        return response()->json(['message' => 'Quiz stored successfully!'], 200);
+        return response()->json(['message' => 'Quiz stored successfully!', 'id' => $content->id], 200);
+        
     }
 }
