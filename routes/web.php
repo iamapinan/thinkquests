@@ -18,7 +18,8 @@ Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth', 
 
 Route::middleware('auth')->group(function () {
     Route::get('/quiz/builder', [ContentController::class, 'quizMaker'])->name('quiz.create');
-    Route::post('/quiz/store', [UploadController::class, 'quize.store']);
+    Route::post('/content/save', [UploadController::class, 'saveContent'])->name('content.save');
+    Route::post('/content/store', [UploadController::class, 'store'])->name('content.store');
     
     Route::get('/content/{id}', [ContentViewerController::class, 'show'])->name('content.view');
     Route::get('/content/{id}/{tab}', [ContentViewerController::class, 'showTab'])->name('content.tab');

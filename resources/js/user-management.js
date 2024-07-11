@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     window.editUser = function(userId) {
-        window.location.href = `/users/${userId}/edit`;
+        window.location.href = `/user-management/${userId}/edit`;
     };
 
     window.deleteUser = function(userId) {

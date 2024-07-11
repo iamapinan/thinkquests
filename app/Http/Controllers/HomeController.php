@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Content;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class HomeController extends Controller
 {
@@ -10,6 +12,13 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('dashboard');
+
+        $getContents = Content::select(['contents.*', 'levels.name as level_name', 'categories.name as category_name'])
+            ->leftJoin('levels', 'contents.grade', '=', 'levels.id')
+            ->leftJoin('categories', 'contents.category', '=', 'categories.id')
+            ->get();
+
+        return view('dashboard')
+        ->with('contents', $getContents);
     }
 }
