@@ -34,9 +34,9 @@ RUN pecl install imagick
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 RUN docker-php-ext-enable imagick
-
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN composer install
 
 RUN chown -R www-data:www-data /var/www
 # RUN chmod 777 -R /var/www/storage
