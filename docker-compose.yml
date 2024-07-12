@@ -3,74 +3,30 @@ services:
   app:
     image: elearning
     restart: unless-stopped
-    volumes:
-      - ./:/var/www
-     #- ./storage/app/public:/var/www/storage/app/public
-      - ./php:/usr/local/etc/php/conf.d
-        #- ./bootstrap/cache:/var/www/bootstrap/cache
-        #- ./storage:/var/www/storage
-      - ./imagick:/etc/ImageMagick-6
-    networks:
-      - public
-    environment:
-      APP_NAME: ThinkQuests
-      APP_ENV: production
-      APP_KEY: base64:G2Jh/KMZ0YrQjf8QCxZQ3J85HKJQ+KdUFbZVzj7Z/4w=
-      APP_DEBUG: false
-      APP_URL: https://thinkquests.com
-      LOG_CHANNEL: stack
-      DB_CONNECTION: mysql
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_DATABASE: thinkquests
-      DB_USERNAME: root
-      DB_PASSWORD: 5863bb3b
-      REDIS_HOST: redis
-      REDIS_PASSWORD: null
-      REDIS_PORT: 6379
-      MAIL_MAILER: smtp
-      MAIL_HOST: mailhog
-      MAIL_PORT: 1025
-      MAIL_USERNAME: null
-      MAIL_PASSWORD: null
-      MAIL_ENCRYPTION: null
-      MAIL_FROM_ADDRESS: null
-      MAIL_FROM_NAME: null
     # volumes:
-    #   - /mnt/volume_sgp1_01/thinkquests/app:/var/www
-
-  nginx:
-    image: nginx:alpine
-    restart: unless-stopped
-    ports:
-      - 8001:80
-    volumes:
-      - /mnt/volume_sgp1_01/thinkquests/app:/var/www
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      # - ./:/var/www
+     #- ./storage/app/public:/var/www/storage/app/public
+      # - ./php:/usr/local/etc/php/conf.d
+        #- ./bootstrap/cache:/var/www/bootstrap/cache
+      # - ./storage/app:/var/www/storage/app
+      # - ./imagick:/etc/ImageMagick-6
     networks:
-      - public
+      - public_net
+    # env_file:
+    #   - .env
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-
-  db:
-    image: mysql:8.0
-    environment:
-      MYSQL_DATABASE: thinkquests
-      MYSQL_USER: thinkquests
-      MYSQL_PASSWORD: 5863bb3b
-      MYSQL_ROOT_PASSWORD: 5863bb3b
-      SERVICE_TAGS: prod
-      SERVICE_NAME: mysql
-    volumes:
-      - /mnt/volume_sgp1_01/thinkquests/db:/var/lib/mysql
-    networks:
-      - public
+  # nginx:
+  #   image: nginx:alpine
+  #   restart: unless-stopped
+  #   ports:
+  #     - 8001:80
+  #   volumes:
+  #     - ./:/var/www
+  #     - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+  #     - ./nginx/nginx.conf:/etc/nginx/nginx.confe
+  #   networks:
+  #     - public_net
 
 networks:
-  public:
+  public_net:
     external: true
