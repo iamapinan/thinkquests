@@ -24,6 +24,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/content/{id}', [ContentViewerController::class, 'show'])->name('content.view');
     Route::get('/content/{id}/{tab}', [ContentViewerController::class, 'showTab'])->name('content.tab');
 
+    Route::delete('/content/{id}', [HomeController::class, 'destroy'])->name('content.destroy');
+
     Route::get('/user-scores', [UserScoreController::class, 'index'])->name('user-scores.index');
     Route::get('/user-scores/export', [UserScoreController::class, 'exportCSV'])->name('user-scores.export');
     Route::get('/user-scores/{user}', [UserScoreController::class, 'show'])->name('user-scores.show');

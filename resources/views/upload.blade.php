@@ -66,6 +66,12 @@
                                     <p class="text-xs text-gray-500 mt-3">JPG, PNG ไม่เกิน 10MB</p>
                                 </div>
                                 <div class="flex flex-col items-start space-y-4 w-full">
+                                    <label class="block mb-2">แผนการสอน</label>
+                                    <input type="file" name="plan" accept=".pdf, .mp4" required
+                                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                    <p class="text-xs text-gray-500 mt-3">PDF ไม่เกิน 10MB หรือ MP4 ไม่เกิน 100MB</p>
+                                </div>
+                                <div class="flex flex-col items-start space-y-4 w-full">
                                     <label class="block mb-2">เนื้อหา Video/PDF</label>
                                     <input type="file" name="file" accept=".pdf, .mp4" required
                                         class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">

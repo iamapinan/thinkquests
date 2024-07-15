@@ -19,6 +19,14 @@ class HomeController extends Controller
             ->get();
 
         return view('dashboard')
-        ->with('contents', $getContents);
+            ->with('contents', $getContents);
+    }
+
+    public function destroy($id)
+    {
+        $post = Content::findOrFail($id);
+        $post->delete();
+
+        return response()->json(['success' => 'Post deleted successfully']);
     }
 }
