@@ -23,6 +23,7 @@ class UploadController extends Controller
         try {
             $cover = $request->file('cover') ? $request->file('cover')->store('cover', 'public') : null;
             $file = $request->file('file') ? $request->file('file')->store('file', 'public') : null;
+            $plan = $request->file('plan') ? $request->file('plan')->store('plan', 'public') : null;
         } catch (\Exception $e) {
             // Log the error or return a response to help with debugging
             return response()->json(['error' => 'File storage failed: ' . $e->getMessage()], 500);
@@ -32,6 +33,7 @@ class UploadController extends Controller
         $content->subject_topic = $request->input('title');
         $content->content_details = $request->input('description');
         $content->content_indicators = $request->input('indicators');
+        $content->plan = $plan;
         $content->grade = $request->input('level');
         $content->category = $request->input('category');
         $content->cover_image = $cover;

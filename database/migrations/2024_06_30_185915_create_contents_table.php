@@ -17,6 +17,7 @@ class CreateContentsTable extends Migration
             $table->string('subject_topic');
             $table->text('content_details');
             $table->text('content_indicators');
+            $table->text('plan');
             $table->integer('score')->default(0);
             $table->integer('grade');
             $table->integer('category');
