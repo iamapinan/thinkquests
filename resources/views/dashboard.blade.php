@@ -48,13 +48,13 @@
                         <!-- Category -->
                         <div class="flex flex-wrap gap-3 justify-center mb-6">
                             @foreach ($contents as $content)
-                            <x-link-button href="/content/{{$content->id}}" class="lg:w-1/4">
+                            <div class="lg:w-1/4">
                                 <div class="p-4 w-full rounded">
-                                    <div class="relative h-40 w-full mb-4 mx-auto">
+                                    <x-link-button href="/content/{{$content->id}}"  class="relative h-40 w-full mb-4 mx-auto">
                                         <img class="w-full h-full object-cover rounded"
                                                 src="{{ asset('storage/' . $content->cover_image  ) }}"
                                                 alt="">
-                                    </div>
+                                    </x-link-button>
                                     <div class="flex mb-6 justify-between items-center">
                                         <div>
                                             <h3 class="text-sm font-bold mb-3">{{ $content->subject_topic }}</h3>
@@ -79,7 +79,7 @@
                                         <span class="text-xs text-blue-500 font-medium">{{ $content->updated_at }}</span>
                                     </div>
                                 </div>
-                            </x-link-button>
+                            </div>
                             @endforeach
                         </div>
                     </x-container>
