@@ -17,12 +17,7 @@ class CategoriesTableSeeder extends Seeder
             ['name' => 'Science'],
             ['name' => 'Mathematics'],
             ['name' => 'History'],
-            ['name' => 'Geography'],
-            ['name' => 'Arts'],
-            ['name' => 'Physical Education'],
-            ['name' => 'Language Arts'],
-            ['name' => 'Music'],
-            ['name' => 'Computer Science'],
+            ['name' => 'Geography']
         ];
 
         DB::table('categories')->insert($categories);
