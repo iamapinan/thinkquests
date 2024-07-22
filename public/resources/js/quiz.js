@@ -61,6 +61,7 @@ function getResult(element){
         element.classList.add("correct");
         updateAnswerIndicator("correct");
         correctAnswers++;
+        playSound("correct");
     }
     else{
         element.classList.add("wrong");
@@ -71,9 +72,18 @@ function getResult(element){
                 optionContainer.children[i].classList.add("correct");
             }
         }
+        playSound("wrong");
+
     }
     attempt++;
     unclickableOptions();
+}
+
+function playSound(soundType) {
+    // Add code here to play the sound based on the soundType
+    // soundType is either 'correct' or 'wrong'
+    const audio = new Audio(`/resources/sounds/${soundType}.mp3`);
+    audio.play();
 }
 
 function unclickableOptions(){

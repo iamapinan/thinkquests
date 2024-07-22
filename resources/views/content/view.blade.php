@@ -15,16 +15,18 @@
             <h2 class="text-lg font-bold text-orange-500 mb-4">เมนู</h2>
             <ul>
                 <li><a href="{{ route('content.tab', ['id' => $content->id, 'tab' => 'details']) }}" class="block py-2 px-4 {{ isset($tab) && $tab == 'details' ? 'bg-blue-300' : '' }}">รายละเอียด</a></li>
+                @if(isset($content->plan))
                 <li><a href="{{ route('content.tab', ['id' => $content->id, 'tab' => 'plan']) }}" class="block py-2 px-4 {{ isset($tab) && $tab == 'plan' ? 'bg-blue-300' : '' }}">แผนการสอน</a></li>
+                @endif
                 <li><a href="{{ route('content.tab', ['id' => $content->id, 'tab' => 'videos']) }}" class="block py-2 px-4 {{ isset($tab) && $tab == 'videos' ? 'bg-blue-300' : '' }}">เนื้อหา</a></li>
                 <li><a href="{{ route('content.tab', ['id' => $content->id, 'tab' => 'e-testing']) }}" class="block py-2 px-4 {{ isset($tab) && $tab == 'e-testing' ? 'bg-blue-300' : '' }}">แบบทดสอบ</a></li>
             </ul>
         </div>
         
         <!-- Main Content -->
-        <div class="w-3/4 p-4">
+        <div class="w-3/4">
             @if (!isset($tab) || $tab == 'details')
-                <div class="mb-10">
+                <div class="mb-10 p-4">
                     <div class="flex mb-4 gap-3">
                         <div class="w-1/3 flex items-center justify-center">
                             <img src="{{ asset('storage/'.$content->cover_image) }}" alt="Content Image" class="w-full h-full object-cover">
@@ -47,14 +49,14 @@
                     <x-link-button href="{{ route('content.tab', ['id' => $content->id, 'tab' => 'videos']) }}">เริ่ม</x-link-button>
                 </div>
             @elseif ($tab == 'plan')
-                <div>
+                <div class="p-4">
                     <h2 class="text-xl font-bold mb-4">แผนการสอน</h2>
                     <div>
                         <iframe src="{{ asset('storage/'.$content->plan) }}" width="100%" style="height: 80vh;"></iframe>
                     </div>
                 </div>
             @elseif ($tab == 'videos')
-                <div>
+                <div class="p-4">
                     <h2 class="text-xl font-bold mb-4">เนื้อหา</h2>
                     <div>
                         {{-- pdf embed --}}
@@ -69,7 +71,7 @@
                     </div>
                 </div>
             @elseif ($tab == 'e-testing')
-                <div>
+                <div class="p-4 bg-blue-200 h-full">
                     <h2 class="text-xl font-bold mb-4">แบบทดสอบ</h2>
                     <x-quiz-player content_id="{{ $content->id }}" />
                 </div>
@@ -162,6 +164,7 @@ function getResult(element){
         element.classList.add("correct");
         updateAnswerIndicator("correct");
         correctAnswers++;
+        playSound("correct");
     }
     else{
         element.classList.add("wrong");
@@ -172,9 +175,18 @@ function getResult(element){
                 optionContainer.children[i].classList.add("correct");
             }
         }
+        playSound("wrong");
+
     }
     attempt++;
     unclickableOptions();
+}
+
+function playSound(soundType) {
+    // Add code here to play the sound based on the soundType
+    // soundType is either 'correct' or 'wrong'
+    const audio = new Audio(`/resources/sounds/${soundType}.mp3`);
+    audio.play();
 }
 
 function unclickableOptions(){
