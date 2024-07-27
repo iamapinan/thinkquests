@@ -16,9 +16,11 @@ class UsersTableSeeder extends Seeder
         User::insert(
             [
                 'name' => 'Super Admin',
-                'email' => 'iamapinan@gmail.com',
-                'password' => bcrypt('v4boyomN'),
-                'role_id' => 3,
+                'email' => 'admin@thinkquests.com',
+                'password' => bcrypt('123456'),
+                'role_id' => 2,
+                'organization_id' => 1,
+                'status' => true,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]

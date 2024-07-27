@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'role_id',
+        'status',
+        'organization_id',
         'password',
     ];
 
@@ -49,6 +51,10 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
     }
 
     public function hasPermission($permission)

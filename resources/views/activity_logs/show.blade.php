@@ -12,7 +12,7 @@
             </x-link-button>
         </div>
         <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border border-gray-200">
+            <table class="min-w-full bg-gray-100 text-dark border border-gray-200">
                 <thead>
                     <tr class="bg-blue-500 text-white">
                         <th class="py-2 px-4 border-b">ID</th>

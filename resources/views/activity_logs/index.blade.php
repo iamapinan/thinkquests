@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Activity logs') }}
+            {{ __('บันทึกกิจกรรม เก็บย้อนหลัง 90 วัน') }} 
         </h2>
     </x-slot>
     <div
@@ -9,10 +9,10 @@
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white border border-gray-200">
                 <thead>
-                    <tr class="bg-blue-500 text-white">
+                    <tr class="bg-gray-100 text-dark">
                         <th class="py-2 px-4 border-b">ID</th>
                         <th class="py-2 px-4 border-b">User</th>
-                        <th class="py-2 px-4 border-b">Activity</th>
+                        <th class="py-2 px-4 border-b">URL</th>
                         <th class="py-2 px-4 border-b">Timestamp</th>
                         <th class="py-2 px-4 border-b">Actions</th>
                     </tr>

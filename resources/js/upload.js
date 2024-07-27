@@ -48,6 +48,26 @@ document.addEventListener("DOMContentLoaded", function () {
     nextStepButton.addEventListener("click", function (e) {
         e.preventDefault();
         const formData = new FormData(form);
+        
+        // Validate form input
+        const titleInput = form.querySelector('input[name="title"]');
+        const descriptionInput = form.querySelector('textarea[name="description"]');
+        const categoryInput = form.querySelector('select[name="category"]');
+        
+        if (!titleInput.value) {
+            alert('Please enter a title');
+            return;
+        }
+        
+        if (!descriptionInput.value) {
+            alert('Please enter a description');
+            return;
+        }
+        
+        if (categoryInput.value === '0') {
+            alert('Please select a category');
+            return;
+        }
 
         // Append image data from file inputs
         document.querySelectorAll('input[type="file"]').forEach(input => {

@@ -141,6 +141,32 @@ function goToHome(){
     resetQuiz();
 }
 
+
+async function saveScoreToDatabase() {
+    const scoreData = {
+        score: correctAnswers,
+    };
+
+    try {
+        const response = await fetch('/score', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+            body: JSON.stringify(scoreData),
+        });
+
+        if (response.ok) {
+            console.log('Successfully');
+        } else {
+            console.error('Failed to save');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
 function startQuiz(){
     homeBox.classList.add("hide");
     quizBox.classList.remove("hide");

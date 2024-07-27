@@ -74,6 +74,40 @@ class UserScoreController extends Controller
         return view('score.user', compact('user', 'userScores'));
     }
 
+    // Create edit score controller
+    public function edit(User $user)
+    {
+        // update score from request and return to reference page
+        $userScore = UserScore::where('user_id', $user->id)->first();
+        $userScore->score = request('score');
+        $userScore->content_id = request('content_id');
+        $userScore->save();
+        return redirect()->back();
+    }
+
+    public function save(User $user)
+    {
+        // update score from request and return to reference page
+        $userScore = UserScore::where([
+            'user_id' => $user->id,
+            'content_id' => request('content_id'),
+        ])->first();
+
+        if (!$userScore) {
+            $userScore = UserScore::create([
+                'user_id' => $user->id,
+                'content_id' => request('content_id'),
+                'score' => request('score'),
+            ]);
+        } else {
+            $userScore->score = request('score');
+            $userScore->save();
+        }
+
+        return response()->json(['message' => 'Score updated successfully!', 'data' => $userScore]);
+    }
+
+
     /**
      * Export the specified user's scores to a CSV file.
      *

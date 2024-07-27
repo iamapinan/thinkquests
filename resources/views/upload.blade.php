@@ -18,14 +18,14 @@
 
                                 <form class="space-y-4" id="createContent">
                                     <input type="text" name="title" placeholder="ชื่อเนื้อหา"
-                                        class="w-full p-3 border border-gray-300 rounded-lg">
+                                        class="w-full p-3 border border-gray-300 rounded-lg" required>
                                     <textarea name="description" placeholder="คำอธิบายเนื้อหา" class="w-full p-3 border border-gray-300 rounded-lg"></textarea>
                                     <textarea name="indicators" placeholder="ตัวชี้วัด" class="w-full p-3 border border-gray-300 rounded-lg"></textarea>
 
                                     <div class="mb-4">
                                         <label for="level"
                                             class="block text-gray-700 font-bold mb-2">ระดับชั้น</label>
-                                        <select name="level" id="level" class="w-full border-gray-300 rounded">
+                                        <select name="level" id="level" class="w-full border-gray-300 rounded" required>
                                             @foreach ($levels as $level)
                                                 <option value="{{ $level->id }}"
                                                     {{ old('level') == $level->id ? 'selected' : '' }}>
@@ -37,7 +37,7 @@
                                     <div class="mb-4">
                                         <label for="category"
                                             class="block text-gray-700 font-bold mb-2">หมวดหมู่</label>
-                                        <select name="category" id="category" class="w-full border-gray-300 rounded">
+                                        <select name="category" id="category" class="w-full border-gray-300 rounded" required>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
                                                     {{ old('category') == $category->id ? 'selected' : '' }}>
@@ -81,7 +81,8 @@
                         </div>
                         <div class="mt-6 text-center">
                             <x-primary-button id="nextStep" type="button"
-                                class="w-full md:w-auto px-8 py-3 bg-blue-500 text-white rounded-lg gap-1">ดำเนินการต่อ
+                                class="w-full md:w-auto px-8 py-3 bg-blue-500 text-white rounded-lg gap-1">
+                                ดำเนินการต่อ
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                     class="size-5">
                                     <path fill-rule="evenodd"
