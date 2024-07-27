@@ -15,7 +15,7 @@ class ActivityLogController extends Controller
      */
     public function index()
     {
-        $activityLogs = ActivityLog::with('user')->paginate(10);
+        $activityLogs = ActivityLog::with('user')->orderBy('created_at', 'desc')->paginate(40);
         return view('activity_logs.index', compact('activityLogs'));
     }
 
@@ -27,7 +27,7 @@ class ActivityLogController extends Controller
      */
     public function show(User $user)
     {
-        $activityLogs = ActivityLog::where('user_id', $user->id)->paginate(10);
+        $activityLogs = ActivityLog::where('user_id', $user->id)->paginate(40);
         return view('activity_logs.show', compact('user', 'activityLogs'));
     }
 }

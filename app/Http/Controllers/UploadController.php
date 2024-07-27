@@ -55,7 +55,7 @@ class UploadController extends Controller
             $questionImagePath = null;
    
             if ($request->hasFile("q.{$key}.question_image")) {
-                $questionImagePath = $request->file("q.{$key}.question_image")->store('question_images');
+                $questionImagePath = $request->file("q.{$key}.question_image")->store('question_images', 'public');
             }
             // Create a new question record
             $question = new Question();

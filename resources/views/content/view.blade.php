@@ -11,24 +11,25 @@
     </x-slot>
     <div class="flex h-screen w-screen">
         <!-- Sidebar -->
-        <div class="w-[25%] bg-blue-100 p-4">
+        <div class="w-1/6 bg-blue-100 p-4">
             <h2 class="text-lg font-bold text-orange-500 mb-4">เมนู</h2>
             <ul>
-                <li><a href="{{ route('content.tab', ['id' => $content->id, 'tab' => 'details']) }}" class="block py-2 px-4 {{ isset($tab) && $tab == 'details' ? 'bg-blue-300' : '' }}">รายละเอียด</a></li>
-                <li><a href="{{ route('content.tab', ['id' => $content->id, 'tab' => 'plan']) }}" class="block py-2 px-4 {{ isset($tab) && $tab == 'plan' ? 'bg-blue-300' : '' }}">แผนการสอน</a></li>
-                <li><a href="{{ route('content.tab', ['id' => $content->id, 'tab' => 'videos']) }}" class="block py-2 px-4 {{ isset($tab) && $tab == 'videos' ? 'bg-blue-300' : '' }}">เนื้อหา</a></li>
-                <li><a href="{{ route('content.tab', ['id' => $content->id, 'tab' => 'e-testing']) }}" class="block py-2 px-4 {{ isset($tab) && $tab == 'e-testing' ? 'bg-blue-300' : '' }}">แบบทดสอบ</a></li>
+                <li><a href="{{ route('content.tab', ['id' => $content->id, 'tab' => 'details']) }}" class="block rounded py-2 px-4 {{ isset($tab) && $tab == 'details' ? 'bg-blue-300' : '' }}">รายละเอียด</a></li>
+                @if(isset($content->plan))
+                <li><a href="{{ route('content.tab', ['id' => $content->id, 'tab' => 'plan']) }}" class="block rounded py-2 px-4 {{ isset($tab) && $tab == 'plan' ? 'bg-blue-300' : '' }}">แผนการสอน</a></li>
+                @endif
+                <li><a href="{{ route('content.tab', ['id' => $content->id, 'tab' => 'videos']) }}" class="block rounded py-2 px-4 {{ isset($tab) && $tab == 'videos' ? 'bg-blue-300' : '' }}">เนื้อหา</a></li>
+                <li><a href="{{ route('content.tab', ['id' => $content->id, 'tab' => 'e-testing']) }}" class="block rounded py-2 px-4 {{ isset($tab) && $tab == 'e-testing' ? 'bg-blue-300' : '' }}">แบบทดสอบ</a></li>
             </ul>
         </div>
         
         <!-- Main Content -->
-        <div class="w-3/4 p-4">
+        <div class="w-5/6">
             @if (!isset($tab) || $tab == 'details')
-                <div class="mb-10">
-                    <div class="flex mb-4 gap-3">
+                <div class="mb-10 p-10">
+                    <div class="flex mb-6 gap-3">
                         <div class="w-1/3 flex items-center justify-center">
                             <img src="{{ asset('storage/'.$content->cover_image) }}" alt="Content Image" class="w-full h-full object-cover">
-                        </div>
                         </div>
                         <div class="w-2/3 pl-4 leading-8">
                             <h2 class="text-xl font-bold">เรื่อง: {{ $content->subject_topic }}</h2>
@@ -42,20 +43,18 @@
                             <p><strong>ระดับชั้น:</strong> {{ $level->name }}</p>
                             <p><strong>หมวดหมู่:</strong> {{ $category->name }}</p>
                             <p><strong>อัปเดทล่าสุด:</strong> {{ $content->updated_at }}</p>
+                            <a href="{{ route('content.tab', ['id' => $content->id, 'tab' => 'videos']) }}" class="border rounded-xl shadow border-sky-900 px-6 mt-4 inline-block py-2 bg-sky-700 text-white text-lg">เริ่มต้นเรียนรู้</a>
                         </div>
                     </div>
-                    <x-link-button href="{{ route('content.tab', ['id' => $content->id, 'tab' => 'videos']) }}">เริ่ม</x-link-button>
                 </div>
             @elseif ($tab == 'plan')
-                <div>
-                    <h2 class="text-xl font-bold mb-4">แผนการสอน</h2>
+                <div class="p-4">
                     <div>
                         <iframe src="{{ asset('storage/'.$content->plan) }}" width="100%" style="height: 80vh;"></iframe>
                     </div>
                 </div>
             @elseif ($tab == 'videos')
-                <div>
-                    <h2 class="text-xl font-bold mb-4">เนื้อหา</h2>
+                <div class="p-4">
                     <div>
                         {{-- pdf embed --}}
                         @if($content->video_pdf&&explode('.',$content->video_pdf)[1]=='pdf')
@@ -69,8 +68,7 @@
                     </div>
                 </div>
             @elseif ($tab == 'e-testing')
-                <div>
-                    <h2 class="text-xl font-bold mb-4">แบบทดสอบ</h2>
+                <div class="p-4 bg-blue-200 h-full">
                     <x-quiz-player content_id="{{ $content->id }}" />
                 </div>
             @endif
@@ -83,7 +81,8 @@
         @foreach($questions as $question)
             {
                 q: '{{ $question->question_text }}',
-                options: ['{{ $question->answer[0]['answer_text'] }}','{{ $question->answer[1]['answer_text'] }}','{{ $question->answer[2]['answer_text'] }}','{{ $question->answer[3]['answer_text'] }}'],
+                options: ['{{ $question->answer[0]['answer_text'] }}','{{ $question->answer[1]['answer_text'] }}'],
+                score: {{ $question->question_score }},
                 answer: {{ $question->correct_choice-1 }},
                 @if($question->question_image)
                     img: '{{ asset('storage/'.$question->question_image) }}',
@@ -107,6 +106,10 @@ const homeBox = document.querySelector(".home-box");
 const quizBox = document.querySelector(".quiz-box");
 const resultBox = document.querySelector(".result-box");
 const questionLimit = quiz.length;
+const allScore = quiz.reduce((sum, current) => sum + current.score, 0);
+const questionTime = 30;
+let currentScore = 0;
+
 
 let questionCounter = 0;
 let currentQuestion;
@@ -123,9 +126,9 @@ function setAvailableQuestions(){
 }
 
 function getNewQuestion(){
-    questionNumber.innerHTML = "คำถามที่ " + (questionCounter+1) + " จาก " + questionLimit;
     const questionIndex = availableQuestions[Math.floor(Math.random()*availableQuestions.length)];
     currentQuestion = questionIndex;
+    questionNumber.innerHTML = "<span class='text-xl'>คำถามที่ " + (questionCounter+1) + " จาก " + questionLimit + "</span> <span class='text-green-500'>⭐️ " + currentQuestion.score + " คะแนน</span>";
     questionText.innerHTML = currentQuestion.q;
     const index1 = availableQuestions.indexOf(questionIndex);
     availableQuestions.splice(index1,1);
@@ -162,6 +165,8 @@ function getResult(element){
         element.classList.add("correct");
         updateAnswerIndicator("correct");
         correctAnswers++;
+        playSound("correct");
+        currentScore += currentQuestion.score;
     }
     else{
         element.classList.add("wrong");
@@ -172,9 +177,18 @@ function getResult(element){
                 optionContainer.children[i].classList.add("correct");
             }
         }
+        playSound("wrong");
+
     }
     attempt++;
     unclickableOptions();
+}
+
+function playSound(soundType) {
+    // Add code here to play the sound based on the soundType
+    // soundType is either 'correct' or 'wrong'
+    const audio = new Audio(`/resources/sounds/${soundType}.mp3`);
+    audio.play();
 }
 
 function unclickableOptions(){
@@ -219,7 +233,7 @@ function quizResult(){
     resultBox.querySelector(".total-wrong").innerHTML = attempt - correctAnswers;
     const percentage = (correctAnswers/questionLimit)*100;
     resultBox.querySelector(".percentage").innerHTML = percentage.toFixed(2) + "%";
-    resultBox.querySelector(".total-score").innerHTML = correctAnswers + " / " + questionLimit;
+    resultBox.querySelector(".total-score").innerHTML = currentScore + " / " + allScore;
 }
 
 function resetQuiz(){
@@ -239,6 +253,7 @@ function tryAgain(){
 function goToHome(){
     resultBox.classList.add("hide");
     homeBox.classList.remove("hide");
+    saveScoreToDatabase();
     resetQuiz();
 }
 
@@ -252,5 +267,33 @@ function startQuiz(){
 
 window.onload = function (){
     homeBox.querySelector(".total-question").innerHTML = ""+questionLimit;
+    homeBox.querySelector(".total-score").innerHTML = ""+allScore;
+}
+
+async function saveScoreToDatabase() {
+    const scoreData = {
+        score: currentScore,
+        content_id: {{ $content->id }}
+    };
+
+    try {
+        const response = await fetch("{{ route('user-scores.save', Auth::user()->id) }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+            body: JSON.stringify(scoreData),
+        });
+        if(response.ok) {
+            const data = await response.json(); // Parse the response as JSON
+            alert(data.message);
+        }
+
+        console.log('Response:', response);
+        
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }
 </script>

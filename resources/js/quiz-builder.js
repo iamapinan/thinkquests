@@ -72,16 +72,14 @@ document.addEventListener("DOMContentLoaded", function () {
             <button type="button" class="absolute top-2 right-2 text-red-500" onclick="removeQuestion(${questionNumber})">ลบข้อนี้</button>
             <button type="button" class="toggle-button" data-question-number="${questionNumber}">ข้อที่ (${questionNumber})</button>
             <div class="mt-6">
-            <input type="text" required name="q[${questionNumber}][question_message]" value="test" class="block w-full p-2 mb-2 rounded border" placeholder="คำถามปรนัย">
+            <input type="text" required name="q[${questionNumber}][question_message]" value="" class="block w-full p-2 mb-2 rounded border" placeholder="คำถามปรนัย">
             <label class="block mb-2">อัพโหลดรูปเพื่อเป็นคำถาม</label>
             <input type="file" name="q[${questionNumber}][question_image]" class="block w-full p-2 mb-2 rounded border">
             <div class="border-b border-gray-300 w-full my-6"></div>
             <label class="block mb-2 mt-8 text-weight-bold">ตัวเลือก</label>
 
-            <input type="text" name="q[${questionNumber}][options][1][text]" value="test" class="block w-full p-2 mb-2 rounded border-gray-300" placeholder="ตัวเลือกที่ 1">
-            <input type="text" name="q[${questionNumber}][options][2][text]" value="test" class="block w-full p-2 mb-2 mt-4 rounded border-gray-300" placeholder="ตัวเลือกที่ 2">
-            <input type="text" name="q[${questionNumber}][options][3][text]" value="test" class="block w-full p-2 mb-2 mt-4 rounded border-gray-300" placeholder="ตัวเลือกที่ 3">
-            <input type="text" name="q[${questionNumber}][options][4][text]" value="test" class="block w-full p-2 mb-2 mt-4 rounded border-gray-300" placeholder="ตัวเลือกที่ 4">
+            <input type="text" name="q[${questionNumber}][options][1][text]" value="" class="block w-full p-2 mb-2 rounded border-gray-300" placeholder="ตัวเลือกที่ 1">
+            <input type="text" name="q[${questionNumber}][options][2][text]" value="" class="block w-full p-2 mb-2 mt-4 rounded border-gray-300" placeholder="ตัวเลือกที่ 2">
 
             <label class="block mb-2 text-weight-bold mt-10">คำตอบที่ถูกต้อง</label>
             <input type="number" required name="q[${questionNumber}][answer]" class="block w-full p-2 mb-2 rounded border-gray-300" placeholder="ป้อนตัวเลือกที่ถูกต้องเป็นตัวเลข 1-4" value="1" >

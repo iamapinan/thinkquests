@@ -25,12 +25,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderUserTable(data) {
         let html = `
-            <table class="min-w-full bg-white">
+            <table class="min-w-full bg-white border border-gray-200">
                 <thead>
                     <tr class="bg-gray-100">
+                        <th class="py-2 px-4 border-b"></th>
                         <th class="py-2 px-4 border-b">Name</th>
                         <th class="py-2 px-4 border-b">Email</th>
                         <th class="py-2 px-4 border-b">Role</th>
+                        <th class="py-2 px-4 border-b">Status</th>
+                        <th class="py-2 px-4 border-b">Organization</th>
                         <th class="py-2 px-4 border-b">Actions</th>
                     </tr>
                 </thead>
@@ -40,10 +43,15 @@ document.addEventListener('DOMContentLoaded', function() {
         data.users.forEach(user => {
             html += `
                 <tr>
-                    <td class="py-2 px-4 border-b">${user.name}</td>
-                    <td class="py-2 px-4 border-b">${user.email}</td>
-                    <td class="py-2 px-4 border-b text-center">${user.role_name}</td>
-                    <td class="py-2 px-4 border-b text-end">
+                    <td class="border px-4 py-2">
+                        <img class="w-10 h-10 rounded-pill object-cover" src="https://ui-avatars.com/api/?background=random&rounded=true&name=${user.name}" alt="${user.name}">
+                    </td>
+                    <td class="py-2 px-4 border">${user.name}</td>
+                    <td class="py-2 px-4 border">${user.email}</td>
+                    <td class="py-2 px-4 border text-center">${user.role_name}</td>
+                    <td class="py-2 px-4 border text-center">${user.status ? '✅ Active' : '❌ Suspended'}</td>
+                    <td class="py-2 px-4 border text-center">${user.organization_id !== null ? user.organization.name : 'ไม่มีสังกัด'}</td>
+                    <td class="py-2 px-4 border text-end">
                         <button class="bg-yellow-100 text-black px-2 py-1 rounded mr-2" onclick="editUser(${user.id})">Edit</button>
                         <button class="bg-red-100 text-black px-2 py-1 rounded mr-2" onclick="deleteUser(${user.id})">Delete</button>
                         <button class="bg-blue-100 text-black px-2 py-1 rounded mr-2" onclick="resetPassword(${user.id})">Reset Password</button>
@@ -77,14 +85,14 @@ document.addEventListener('DOMContentLoaded', function() {
         return html;
     }
 
-    function changePage(page) {
+    window.changePage = function(page) {
         currentPage = page;
         fetchUsers(currentRole, currentPage, searchQuery);
     }
 
     searchInput.addEventListener('input', function() {
         searchQuery = searchInput.value;
-        fetchUsers(currentRole, currentPage, searchQuery);
+        fetchUsers(currentRole, 1, searchQuery);
     });
 
     createUserButton.addEventListener('click', function() {
@@ -97,12 +105,12 @@ document.addEventListener('DOMContentLoaded', function() {
             tabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
             currentRole = this.getAttribute('data-role');
-            fetchUsers(currentRole, currentPage, searchQuery);
+            fetchUsers(currentRole, 1, searchQuery);
         });
     });
 
     window.editUser = function(userId) {
-        window.location.href = `/user-management/${userId}/edit`;
+        window.location.href = `/users/${userId}/edit`;
     };
 
     window.deleteUser = function(userId) {

@@ -9,7 +9,7 @@
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white border border-gray-200">
                 <thead>
-                    <tr class="bg-blue-500 text-white">
+                    <tr class="bg-gray-100 text-dark">
                         <th class="py-2 px-4 border-b">Role</th>
                         <th class="py-2 px-4 border-b">Permissions</th>
                         <th class="py-2 px-4 border-b">Actions</th>

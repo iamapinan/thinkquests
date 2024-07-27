@@ -15,8 +15,13 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('หน้าแรก') }}
                     </x-nav-link>
+
+                    @if(Auth::user()->role_id == 2)
                     <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
                         {{ __('ผู้ใช้งาน') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('organization.index')" :active="request()->routeIs('organization.index')">
+                        {{ __('องค์กร') }}
                     </x-nav-link>
                     <x-nav-link :href="route('activity-logs.index')" :active="request()->routeIs('activity-logs.index')">
                         {{ __('บันทึกการใช้งาน') }}
@@ -27,6 +32,7 @@
                     <x-nav-link :href="route('user-scores.index')" :active="request()->routeIs('user-scores.index')">
                         {{ __('คะแนน') }}
                     </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -35,7 +41,10 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+                            <div class="flex items-center gap-2">
+                                <img class="w-6 h-6 rounded-pill object-cover" src="https://ui-avatars.com/api/?background=random&rounded=true&name={{ Auth::user()->name }}" alt="{{ Auth::user()->name }}">
+                                {{ Auth::user()->name }}
+                            </div>
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

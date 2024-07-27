@@ -98,19 +98,28 @@ h6 {
     box-shadow: 0 0 0 1.5px rgb(0 0 0 / 40%);
     transform: box-shadow, scale(1.1) 200ms ease-in;
 }
-
 .btn {
-    background-color: #17A4CB;
-    padding: 15px 45px;
+    background-color: #3cc0e4;
+    padding: 15px 85px;
+    border-radius: 10px;
+    color: #00181f;
+    border: 1px solid #0e5d73;
+    display: inline-block;
+}
+.btn:hover {
+    background-color: #1590b2;
+}
+.next-question-btn .btn {
+    background-color: #3688fa;
+    padding: 15px 85px;
     border-radius: 10px;
     color: white;
     border: none;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     display: inline-block;
 }
 
-.exit-btn {
+.next-question-btn .exit-btn {
  background-color: red;
  float: right;
 }
@@ -145,9 +154,9 @@ h6 {
 }
 
 .quiz-box .question-text {
-    font-size: 18px;
-    font-weight: 400;
-    color: black;
+    font-size: 22px;
+    font-weight: 600;
+    color: #000000;
     line-height: 28px;
     padding: 20px 0;
     margin: 0;
@@ -161,11 +170,12 @@ h6 {
 }
 
 .quiz-box .option-container .option {
-    font-size: 16px;
+    font-size: 18px;
     color: black;
     line-height: 22px;
     padding: 13px 15px;
-    background-color: #cccccc;
+    background-color: #fff393;
+    border: 2px solid #fad71a;
     margin-bottom: 10px;
     border-radius: 5px;
     cursor: pointer;
@@ -193,6 +203,7 @@ h6 {
     height: 100%;
     width: 100%;
     background-color: green;
+    border: 1px solid rgb(9, 74, 9);
     z-index: -1;
     animation: slideInLeft .5s ease forwards;
 }
@@ -250,16 +261,16 @@ h6 {
 
 .quiz-box .answers-indicator div.correct {
     background-color: green;
-    background-image: url("/img/correct.png");
-    background-size: 50%;
+    background-image: url("../assets/correct.png");
+    background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .quiz-box .answers-indicator div.wrong {
     background-color: red;
-    background-image: url("/img/wrong.png");
-    background-size: 50%;
+    background-image: url("../assets/wrong.png");
+    background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
 }
