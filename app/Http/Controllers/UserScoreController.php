@@ -16,7 +16,7 @@ class UserScoreController extends Controller
      */
     public function index()
     {
-        $userScores = UserScore::with(['user', 'content'])->paginate(10);
+        $userScores = UserScore::with(['user', 'content'])->whereHas('content')->paginate(20);
         
         return view('score.index', compact('userScores'));
     }
@@ -70,7 +70,10 @@ class UserScoreController extends Controller
      */
     public function show(User $user)
     {
-        $userScores = UserScore::with(['content'])->where('user_id', $user->id)->paginate(10); // Paginate with 10 per page
+        $userScores = UserScore::with(['content'])
+            ->where('user_id', $user->id)
+            ->whereHas('content')
+            ->paginate(20); 
         return view('score.user', compact('user', 'userScores'));
     }
 
