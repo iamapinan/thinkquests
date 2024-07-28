@@ -17,7 +17,6 @@
                     <tr class="bg-gray-100 text-dark">
                         <th class="py-2 px-4 border-b">รหัสผู้ใช้</th>
                         <th class="py-2 px-4 border-b">ชื่อ นามสกุล</th>
-                        <th class="py-2 px-4 border-b">เนื้อหา</th>
                         <th class="py-2 px-4 border-b">คะแนน</th>
                         <th class="py-2 px-4 border-b">เมื่อ</th>
                         <th class="py-2 px-4 border-b"></th>
@@ -28,7 +27,6 @@
                         <tr class="odd:bg-white even:bg-gray-100">
                             <td class="py-2 px-4 border-b">{{ $userScore->id }}</td>
                             <td class="py-2 px-4 border-b">{{ $userScore->user->name }}</td>
-                            <td class="py-2 px-4 border-b">{{ $userScore->content->subject_topic }}</td>
                             <td class="py-2 px-4 border-b">{{ $userScore->score }}</td>
                             <td class="py-2 px-4 border-b">{{ $userScore->timestamp }}</td>
                             <td class="py-2 px-4 border-b">
