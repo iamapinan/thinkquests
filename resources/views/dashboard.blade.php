@@ -91,4 +91,28 @@
         </div>
     </div>
 </x-app-layout>
-@vite(['resources/js/dashboard.js'])
+<script>
+function deletePost(postId) {
+    fetch(`/content/${postId}`, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(result => {
+        // Handle success (e.g., show a message, remove an element)
+        alert(result.success);
+        window.location.reload();
+    })
+    .catch(error => {
+        // Handle error
+        console.log('Error deleting post');
+    });
+}
+</script>
