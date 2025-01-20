@@ -16,8 +16,9 @@ class UserScoreController extends Controller
      */
     public function index()
     {
-        $userScores = UserScore::with(['user', 'content'])->whereHas('content')->paginate(20);
-        
+        $userScores = UserScore::paginate(20);
+        // print_r($userScores);
+        // exit;
         return view('score.index', compact('userScores'));
     }
 
@@ -39,7 +40,7 @@ class UserScoreController extends Controller
             "Expires"             => "0"
         );
 
-        $columns = ['ID', 'User ID', 'Content ID', 'Score', 'Timestamp'];
+        $columns = ['ID', 'User ID', 'Content', 'Score', 'Timestamp'];
 
         $callback = function() use($userScores, $columns) {
             $file = fopen('php://output', 'w');
@@ -49,7 +50,7 @@ class UserScoreController extends Controller
                 $row = [
                     $userScore->id,
                     $userScore->user->name,  // Assuming user has a 'name' attribute
-                    $userScore->content_id,  // Assuming content has a 'title' attribute
+                    $userScore->content->subject_topic,  // Assuming content has a 'title' attribute
                     $userScore->score,
                     $userScore->timestamp,
                 ];
@@ -75,7 +76,11 @@ class UserScoreController extends Controller
         $userScores = UserScore::with(['content'])
             ->where('user_id', $user->id)
             ->whereHas('content')
+            // ->toSql();
             ->paginate(20); 
+        // print_r($userScores);
+        // exit;
+      
         return view('score.user', compact('user', 'userScores'));
     }
 
