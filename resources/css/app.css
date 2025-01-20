@@ -118,7 +118,27 @@ h6 {
     font-size: 18px;
     display: inline-block;
 }
+#nextStep:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
 
+/* ถ้าต้องการเพิ่ม loading spinner */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 .next-question-btn .exit-btn {
  background-color: red;
  float: right;
@@ -323,5 +343,35 @@ h6 {
     }
     body {
         padding: 5px;
+    }
+}
+
+/* เพิ่ม animation สำหรับ loading state */
+.button-loading {
+    position: relative;
+    cursor: wait;
+}
+
+.button-loading span {
+    visibility: hidden;
+}
+
+.button-loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: button-loading-spinner 0.6s linear infinite;
+}
+
+@keyframes button-loading-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+    to {
+        transform: rotate(1turn);
     }
 }

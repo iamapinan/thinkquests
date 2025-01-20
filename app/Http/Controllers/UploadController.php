@@ -49,38 +49,40 @@ class UploadController extends Controller
         // Find the content
         $content = Content::findOrFail($request->input('content_id'));
 
-        // Loop through each question
-        foreach ($request->input('q') as $key => $questionData) {
-            // Handle question image upload
-            $questionImagePath = null;
-   
-            if ($request->hasFile("q.{$key}.question_image")) {
-                $questionImagePath = $request->file("q.{$key}.question_image")->store('question_images', 'public');
-            }
-            // Create a new question record
-            $question = new Question();
-            $question->content_id = $content->id;
-            $question->question_text = $questionData['question_message'];
-            $question->correct_choice = $questionData['answer'];
-            $question->question_score = $questionData['score'];
-            $question->question_image = $questionImagePath;
-            $question->save();
-
-
-            // Loop through each option
-            foreach ($questionData['options'] as $optionKey => $optionData) {
-                // Handle option image upload
-                $optionImagePath = null;
-                if ($request->hasFile("q.{$key}.options.{$optionKey}.image")) {
-                    $optionImagePath = $request->file("q.{$key}.options.{$optionKey}.image")->store('option_images');
+        // ตรวจสอบว่ามีข้อมูล questionData หรือไม่
+        if ($request->has('q') && !empty($request->input('q'))) {
+            foreach ($request->input('q') as $key => $questionData) {
+                // Handle question image upload
+                $questionImagePath = null;
+       
+                if ($request->hasFile("q.{$key}.question_image")) {
+                    $questionImagePath = $request->file("q.{$key}.question_image")->store('question_images', 'public');
                 }
+                
+                // Create a new question record
+                $question = new Question();
+                $question->content_id = $content->id;
+                $question->question_text = $questionData['question_message'];
+                $question->correct_choice = $questionData['answer'];
+                $question->question_score = $questionData['score'];
+                $question->question_image = $questionImagePath;
+                $question->save();
 
-                // Create a new option record
-                $answer = new Answer();
-                $answer->question_id = $question->id;
-                $answer->answer_text = $optionData['text'];
-                $answer->answer_image = $optionImagePath;
-                $answer->save();
+                // Loop through each option
+                foreach ($questionData['options'] as $optionKey => $optionData) {
+                    // Handle option image upload
+                    $optionImagePath = null;
+                    if ($request->hasFile("q.{$key}.options.{$optionKey}.image")) {
+                        $optionImagePath = $request->file("q.{$key}.options.{$optionKey}.image")->store('option_images');
+                    }
+
+                    // Create a new option record
+                    $answer = new Answer();
+                    $answer->question_id = $question->id;
+                    $answer->answer_text = $optionData['text'];
+                    $answer->answer_image = $optionImagePath;
+                    $answer->save();
+                }
             }
         }
 

@@ -21,7 +21,9 @@
                 @if(isset($content->video_pdf))
                 <li><a href="{{ route('content.tab', ['id' => $content->id, 'tab' => 'videos']) }}" class="block rounded py-2 px-4 {{ isset($tab) && $tab == 'videos' ? 'bg-blue-300' : '' }}">เนื้อหา</a></li>
                 @endif
+                @if(count($questions)>0)
                 <li><a href="{{ route('content.tab', ['id' => $content->id, 'tab' => 'e-testing']) }}" class="block rounded py-2 px-4 {{ isset($tab) && $tab == 'e-testing' ? 'bg-blue-300' : '' }}">แบบทดสอบ</a></li>
+                @endif
             </ul>
         </div>
         
