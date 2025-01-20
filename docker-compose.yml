@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   app:
-    image: elearning
+    image: docker.io/library/thinkquest
     restart: unless-stopped
     volumes:
       - ./:/var/www
