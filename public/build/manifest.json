@@ -1,0 +1,72 @@
+{
+  "resources/assets/correct.png": {
+    "file": "assets/correct-BMFmW0Tl.png",
+    "src": "resources/assets/correct.png"
+  },
+  "resources/assets/wrong.png": {
+    "file": "assets/wrong-BSguQOXq.png",
+    "src": "resources/assets/wrong.png"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-DEt_1_wD.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-B0K1TNv1.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "resources/js/bootstrap.js"
+    ]
+  },
+  "resources/js/bootstrap.js": {
+    "file": "assets/bootstrap-C1-XIpUa.js",
+    "name": "bootstrap",
+    "src": "resources/js/bootstrap.js",
+    "isEntry": true
+  },
+  "resources/js/dashboard.js": {
+    "file": "assets/dashboard-l0sNRNKZ.js",
+    "name": "dashboard",
+    "src": "resources/js/dashboard.js",
+    "isEntry": true
+  },
+  "resources/js/permission.js": {
+    "file": "assets/permission-BgLffgjN.js",
+    "name": "permission",
+    "src": "resources/js/permission.js",
+    "isEntry": true
+  },
+  "resources/js/quiz-builder.js": {
+    "file": "assets/quiz-builder-BwxUaDZx.js",
+    "name": "quiz-builder",
+    "src": "resources/js/quiz-builder.js",
+    "isEntry": true
+  },
+  "resources/js/quiz.js": {
+    "file": "assets/quiz-BcIu4Mcx.js",
+    "name": "quiz",
+    "src": "resources/js/quiz.js",
+    "isEntry": true
+  },
+  "resources/js/score.js": {
+    "file": "assets/score-CG2wvJNy.js",
+    "name": "score",
+    "src": "resources/js/score.js",
+    "isEntry": true
+  },
+  "resources/js/upload.js": {
+    "file": "assets/upload-C8CICEPp.js",
+    "name": "upload",
+    "src": "resources/js/upload.js",
+    "isEntry": true
+  },
+  "resources/js/user-management.js": {
+    "file": "assets/user-management-Cu47TvWF.js",
+    "name": "user-management",
+    "src": "resources/js/user-management.js",
+    "isEntry": true
+  }
+}

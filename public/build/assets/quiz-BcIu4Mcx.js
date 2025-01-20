@@ -1,0 +1,1 @@
+document.querySelector(".question-number");document.querySelector(".question-text");document.querySelector(".option-container");document.querySelector(".answers-indicator");const e=document.querySelector(".home-box");document.querySelector(".quiz-box");document.querySelector(".result-box");const o=5;window.onload=function(){e.querySelector(".total-question").innerHTML=""+o};
