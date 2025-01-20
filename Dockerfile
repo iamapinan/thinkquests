@@ -47,8 +47,8 @@ RUN chmod 777 -R /var/www/bootstrap/cache
 COPY ./imagick/ /etc/ImageMagick-6
 COPY ./php/ /usr/local/etc/php/conf.d
 
-RUN npm install
-RUN npm run build
+# RUN npm install
+# RUN npm run build
 RUN php artisan storage:link
 RUN chmod 777 -R storage
 RUN chmod 777 -R bootstrap/cache
