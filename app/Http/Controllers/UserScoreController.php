@@ -49,7 +49,7 @@ class UserScoreController extends Controller
                 $row = [
                     $userScore->id,
                     $userScore->user->name,  // Assuming user has a 'name' attribute
-                    $userScore->content->title,  // Assuming content has a 'title' attribute
+                    $userScore->content_id,  // Assuming content has a 'title' attribute
                     $userScore->score,
                     $userScore->timestamp,
                 ];
@@ -59,6 +59,8 @@ class UserScoreController extends Controller
 
             fclose($file);
         };
+
+        // print_r($userScores);
 
         return Response::stream($callback, 200, $headers);
     }
